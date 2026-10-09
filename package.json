@@ -1,0 +1,7 @@
+{
+  "name": "close-viewer-news",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": { "test": "node test/run.js" },
+  "dependencies": { "firebase-admin": "^12.1.0" }
+}
