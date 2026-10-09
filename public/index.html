@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>近觀者 Close Viewer News</title>
+<meta name="description" content="看得近，報得真。近觀者新聞有限公司：模擬社會的新聞機構。">
+<meta property="og:title" content="近觀者 Close Viewer News">
+<meta property="og:description" content="看得近，報得真。">
+<meta property="og:image" content="/brand/og.png">
+<link rel="icon" href="/brand/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700&family=Noto+Serif+HK:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 顏色：金色及墨藍來自公司標誌；紙色用冷調，避免泛黃 */
+:root {
+  --gold: #cebd8a; --gold-deep: #8a7230; --ink: #13233f; --ink-deep: #0c1729;
+  --bg: #eef1f5; --surface: #ffffff; --text: #15233b; --muted: #5a6577; --rule: #d3d9e2;
+  --accent: var(--gold-deep); --alert: #9e3b2c; --alert-bg: #f8eeeb; --ok: #3f6b4f; --note-bg: #f5f1e3;
+  --serif: "Noto Serif HK", "Songti TC", "PMingLiU", serif;
+  --sans: "Noto Sans HK", "PingFang HK", "Microsoft JhengHei", sans-serif;
+  box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0c1729; --surface: #13233f; --text: #e9ecf2; --muted: #9aa6b8; --rule: #2a3b5a; --accent: var(--gold); --alert: #e89a8a; --alert-bg: #3a1d1a; --ok: #9ccbaa; --note-bg: #1c2c49; } }
+:root[data-theme="dark"] { --bg: #0c1729; --surface: #13233f; --text: #e9ecf2; --muted: #9aa6b8; --rule: #2a3b5a; --accent: var(--gold); --alert: #e89a8a; --alert-bg: #3a1d1a; --ok: #9ccbaa; --note-bg: #1c2c49; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 1rem/1.8 var(--sans); -webkit-text-size-adjust: 100%; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+img { max-width: 100%; }
+.wrap { max-width: 66rem; margin: 0 auto; padding: 0 1.25rem; }
+.skip { position: absolute; left: -999px; } .skip:focus { left: 1rem; top: 1rem; background: var(--surface); padding: .5rem 1rem; z-index: 9; }
+h1, h2, h3 { font-family: var(--serif); line-height: 1.35; margin: 0; }
+
+/* 報頭：標誌的橫線一直伸延到畫面邊緣。線上是口號，線下是口號的倒影，與標誌「近」字在線上、「觀者」倒映在線下相同。 */
+.mast { background: var(--ink); color: #f1ead6; --logo: 10rem; position: relative; overflow: hidden; }
+.mast-in { position: relative; height: calc(var(--logo) * .985); }
+.mast-logo { position: absolute; left: 1.25rem; top: 0; width: var(--logo); display: block; }
+.mast-logo img { display: block; width: 100%; }
+.mast-line { position: absolute; left: calc(1.25rem + var(--logo) * .7); right: -50vw; top: calc(var(--logo) * .985 * .4845); height: 1px; background: var(--gold); }
+.mast-slogan, .mast-mirror { position: absolute; left: calc(var(--logo) + 2.75rem); font: 700 2.1rem/1 var(--serif); letter-spacing: .16em; white-space: nowrap; }
+.mast-slogan { bottom: calc(var(--logo) * .985 * .5155 + .7rem); color: var(--gold); }
+.mast-mirror { top: calc(var(--logo) * .985 * .4845 + .7rem); transform: scaleY(-1); color: var(--gold); opacity: .22; -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 85%); mask-image: linear-gradient(to top, #000 10%, transparent 85%); user-select: none; }
+.mast-en { position: absolute; right: 1.25rem; bottom: calc(var(--logo) * .985 * .5155 + .8rem); font-size: .85rem; letter-spacing: .14em; color: #b9c0cc; }
+.nav { background: var(--ink-deep); }
+.nav .wrap { display: flex; gap: .25rem 1.5rem; flex-wrap: wrap; padding-top: .55rem; padding-bottom: .55rem; }
+.nav a { color: #cfd5df; text-decoration: none; font-size: .95rem; padding: .15rem 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+.nav a:hover { color: #fff; } .nav a[aria-current="page"] { color: var(--gold); border-bottom-color: var(--gold); }
+@media (max-width: 760px) {
+  .mast { --logo: 6.2rem; } .mast-slogan, .mast-mirror { font-size: 1.25rem; left: calc(var(--logo) + 1.9rem); letter-spacing: .1em; } .mast-en { display: none; }
+  .nav .wrap { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+}
+
+.demo { background: var(--note-bg); border-bottom: 1px solid var(--rule); font-size: .9rem; padding: .5rem 0; }
+main { padding: 2.25rem 0 4rem; min-height: 60vh; }
+.kicker { font-size: .85rem; color: var(--accent); font-weight: 700; }
+.kicker.flash, .kicker.retracted { color: var(--alert); }
+.meta { color: var(--muted); font-size: .85rem; display: flex; gap: .25rem 1rem; flex-wrap: wrap; }
+.page-title { font-size: clamp(1.6rem, 3.6vw, 2.2rem); font-weight: 900; margin-bottom: .5rem; }
+.intro { color: var(--muted); max-width: 44rem; margin: 0 0 2rem; }
+.sec { font-size: 1.25rem; margin: 2.75rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--gold); }
+
+/* 首頁 */
+.lead { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2rem; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+.lead.noimg { grid-template-columns: 1fr; }
+.lead img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+.lead h1 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 900; margin: .4rem 0 .7rem; }
+.lead h1 a, .item h2 a { text-decoration: none; } .lead h1 a:hover, .item h2 a:hover { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: .2em; }
+.lead p { font-size: 1.08rem; margin: 0 0 .9rem; max-width: 40rem; }
+.cats { display: flex; gap: .5rem; flex-wrap: wrap; margin: 0 0 1rem; }
+.cats button { font: inherit; font-size: .9rem; padding: .25rem .85rem; border: 1px solid var(--rule); background: transparent; color: var(--text); border-radius: 2rem; cursor: pointer; }
+.cats button[aria-pressed="true"] { background: var(--ink); color: var(--gold); border-color: var(--ink); }
+.item { display: grid; grid-template-columns: 1fr 9.5rem; gap: 1.25rem; padding: 1.2rem 0; border-bottom: 1px solid var(--rule); }
+.item.noimg { grid-template-columns: 1fr; }
+.item h2 { font-size: 1.2rem; font-weight: 700; margin: .15rem 0 .35rem; }
+.item p { margin: 0 0 .4rem; color: var(--muted); font-size: .95rem; max-width: 44rem; }
+.item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.retracted h2 a, .retracted h1 { text-decoration: line-through; text-decoration-color: var(--alert); }
+@media (max-width: 700px) { .lead { grid-template-columns: 1fr; gap: 1rem; } .item { grid-template-columns: 1fr 5.5rem; gap: .9rem; } }
+
+/* 文章 */
+.article { max-width: 42rem; }
+.article h1 { font-size: clamp(1.7rem, 4.2vw, 2.4rem); font-weight: 900; margin: .5rem 0 1rem; }
+.article .lede { font: 500 1.15rem/1.8 var(--serif); margin: 0 0 1.25rem; }
+.article .body { font-size: 1.06rem; line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; }
+.article figure { margin: 1.5rem 0; } .article figure img { width: 100%; display: block; }
+.note { background: var(--note-bg); border-left: 3px solid var(--gold); padding: .8rem 1rem; margin: 1.25rem 0; font-size: .95rem; }
+.note.alert { background: var(--alert-bg); border-left-color: var(--alert); }
+.back { display: inline-block; margin-bottom: 1.25rem; font-size: .9rem; color: var(--muted); }
+
+/* 公司頁 */
+.creed { font: 700 clamp(1.3rem, 3vw, 1.75rem)/1.6 var(--serif); max-width: 36rem; margin: 0 0 1rem; }
+.rules { list-style: none; padding: 0; margin: 0; max-width: 46rem; }
+.rules li { padding: .75rem 0 .75rem 1.6rem; border-bottom: 1px solid var(--rule); position: relative; }
+.rules li::before { content: ""; position: absolute; left: .2rem; top: 1.45rem; width: .55rem; height: .55rem; background: var(--gold); transform: rotate(45deg); }
+.rules b { font-family: var(--serif); }
+.tbl { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.tbl th, .tbl td { text-align: left; padding: .6rem .75rem .6rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl th { font-weight: 700; color: var(--muted); font-size: .85rem; }
+.scroll { overflow-x: auto; }
+.en { color: var(--muted); font-size: .88em; }
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(14.5rem, 1fr)); gap: 0 2rem; }
+.person { padding: .8rem 0; border-bottom: 1px solid var(--rule); }
+.person b { font: 700 1.05rem var(--serif); display: block; }
+.btn { display: inline-block; font: inherit; font-weight: 700; background: var(--ink); color: var(--gold); border: 1px solid var(--ink); padding: .55rem 1.3rem; cursor: pointer; text-decoration: none; }
+:root[data-theme="dark"] .btn { border-color: var(--gold); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { border-color: var(--gold); } }
+.verify { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1rem 0 1.5rem; }
+.verify input { font: inherit; padding: .55rem .8rem; border: 1px solid var(--rule); background: var(--surface); color: var(--text); width: 16rem; max-width: 100%; letter-spacing: .05em; }
+.result { background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--ok); padding: 1.25rem 1.5rem; max-width: 34rem; }
+.result.bad { border-top-color: var(--alert); }
+.result h2 { font-size: 1.3rem; margin-bottom: .75rem; } .result dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: .35rem 1rem; margin: 0; } .result dt { color: var(--muted); } .result dd { margin: 0; }
+.empty { padding: 3rem 0; color: var(--muted); }
+footer { background: var(--ink); color: #b9c0cc; font-size: .88rem; padding: 2rem 0; }
+footer .wrap { display: flex; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; }
+footer b { color: var(--gold); font: 700 1rem var(--serif); letter-spacing: .12em; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到內容</a>
+<header class="mast">
+  <div class="wrap mast-in">
+    <a class="mast-logo" href="#/" aria-label="近觀者首頁"><img src="/brand/logo.png" alt="近觀者 Close Viewer News Corp"></a>
+    <div class="mast-line"></div>
+    <div class="mast-slogan">看得近，報得真。</div>
+    <div class="mast-mirror" aria-hidden="true">看得近，報得真。</div>
+    <div class="mast-en">Look Closer. Report True.</div>
+  </div>
+</header>
+<nav class="nav" aria-label="主要導覽"><div class="wrap" id="nav"></div></nav>
+<div class="demo" id="demo" hidden><div class="wrap">現正顯示示範內容：網站未能連接新聞資料。部署到 Netlify 並完成設定後，這裡會顯示真正的新聞。</div></div>
+<main id="main"><div class="wrap" id="app"><p class="empty">載入中……</p></div></main>
+<footer><div class="wrap"><div><b>近觀者新聞有限公司</b><br>Close Viewer News Corporation</div><div>報料、查詢、投訴及更正要求：請到本公司 Discord 伺服器的「服務台」。<br>本網站內容僅供模擬社會角色扮演使用，與現實機構無關。</div></div></footer>
+
+<script>
+const NAV = [['#/', '新聞'], ['#/corrections', '更正紀錄'], ['#/about', '關於本公司'], ['#/people', '管理層及團隊'], ['#/academy', '培訓學院'], ['#/verify', '證書核實'], ['#/careers', '加入我們'], ['#/contact', '聯絡']];
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const day = (ms) => new Date(ms + 8 * 3600e3).toISOString().slice(0, 16).replace('T', ' ');
+let demo = false; const cache = {};
+
+/* 示範內容：只在讀取不到 /api 時使用（例如直接在電腦打開這個檔案） */
+const DEMO = {
+  news: { cats: [{ key: 'local', zh: '本地' }, { key: 'gov', zh: '政府' }, { key: 'biz', zh: '財經' }], items: [
+    { id: 'CV-0003', title: '政府宣佈下月起調高巴士票價百分之八', cat: 'gov', catName: '政府', type: 'news', typeName: '新聞', status: 'published', lede: '運輸署表示會同時加強監察班次；有乘客團體要求先改善服務。', author: '示範記者', editor: '示範編輯', publishedAt: Date.now() - 3600e3, img: '', corrections: [{ at: Date.now() - 1800e3, text: '原文指加幅為一成，應為百分之八。', kind: 'correct' }] },
+    { id: 'CV-0002', title: '【評論】加價之前，先交代服務承諾', cat: 'local', catName: '本地', type: 'opinion', typeName: '評論', status: 'published', lede: '票價可以調整，但乘客有權知道換來甚麼。', author: '示範作者', editor: '示範編輯', publishedAt: Date.now() - 86400e3, img: '', corrections: [] },
+    { id: 'CV-0001', title: '某商戶被指出售冒牌貨', cat: 'biz', catName: '財經', type: 'news', typeName: '新聞', status: 'retracted', lede: '', author: '示範記者', editor: '示範編輯', publishedAt: Date.now() - 2 * 86400e3, img: '', corrections: [], retractReason: '核心資料來源未能核實。', retractedAt: Date.now() - 86400e3 },
+  ] },
+  staff: { staff: [{ name: '示範主席', title: '董事會主席', titleEn: 'Chairman', g: 9, tier: 3, dept: '' }, { name: '示範總監', title: '編輯總監', titleEn: 'Editorial Director', g: 6, tier: 2, dept: '編輯部' }, { name: '示範同事', title: '助理新聞經理', titleEn: 'Assistant Press Manager', g: 4, tier: 2, dept: '新聞部' }, { name: '示範新人', title: '見習新聞主任', titleEn: 'Trainee Press Officer', g: 1, tier: 1, dept: '新聞部' }] },
+  company: { brand: { creed: '接近事實的觀點' }, ethics: ['一、事實先行。 每項事實都有來源；查不到就寫「未能證實」。', '二、事實與觀點分開。 新聞只寫事實；評論必定標明。', '五、錯了公開改正。 不會悄悄修改或刪除。'], depts: [{ zh: '新聞部', en: 'Press Department', does: '採訪、跟進報料、撰寫新聞稿及專題', example: '助理新聞經理 Assistant Press Manager' }], grades: [{ g: 1, zh: '見習主任', en: 'Trainee Officer', tier: '員工' }, { g: 4, zh: '助理經理', en: 'Assistant Manager', tier: '管理人員' }, { g: 9, zh: '董事會主席', en: 'Chairman', tier: '董事會' }], tracks: [{ key: 'F', zh: '基礎系列', en: 'Foundation' }], exam: { draw: 8, pass: 6, cooldownHours: 6 }, courses: [{ id: 'F101', name: '公司入職須知', en: 'Company Induction', track: 'F', who: '全體新入職同事', intro: '認識公司的理念、架構、職級及員工守則。', need: [], sections: ['公司與理念', '公司架構'] }], certs: [{ key: 'CF', zh: '基礎專業證書', en: 'Foundation Certificate', courses: ['F101', 'F102', 'F103'], for: '全體員工' }], caseTypes: ['一般查詢', '投訴', '更正要求', '合作及廣告', '內容授權'] },
+};
+async function api(path) {
+  if (cache[path]) return cache[path];
+  try {
+    const r = await fetch('/api/' + path, { headers: { Accept: 'application/json' } });
+    const j = await r.json();
+    if (!r.ok && r.status !== 404) throw new Error('HTTP ' + r.status);
+    j._status = r.status;
+    if (!path.startsWith('verify') && !path.startsWith('me')) cache[path] = j;
+    return j;
+  } catch (e) {
+    demo = true; $('#demo').hidden = false;
+    const k = path.split('?')[0];
+    if (k === 'story') { const id = new URLSearchParams(path.split('?')[1]).get('id'); const s = DEMO.news.items.find((x) => x.id === id); return s ? { ...s, body: s.status === 'retracted' ? '' : '（示範內文）' + s.lede, _status: 200 } : { _status: 404 }; }
+    if (k === 'verify') return { found: false, _status: 404 };
+    if (k === 'me') return { _status: 401, error: '示範模式下未能顯示個人專頁。' };
+    return { ...DEMO[k], _status: 200 };
+  }
+}
+
+const kicker = (s) => `<span class="kicker ${s.status === 'retracted' ? 'retracted' : s.type}">${s.status === 'retracted' ? '已撤回' : esc(s.catName) + (s.type !== 'news' ? '｜' + esc(s.typeName) : '')}</span>`;
+const byline = (s) => `<div class="meta"><span>${s.type === 'opinion' ? '作者' : '撰稿'}：${esc(s.author)}</span><span>${day(s.publishedAt)}</span>${s.corrections.length ? '<span>已更正</span>' : ''}</div>`;
+
+async function home(cat) {
+  const d = await api('news');
+  const list = d.items.filter((s) => !cat || s.cat === cat);
+  const lead = !cat && list.find((s) => s.status === 'published'), rest = list.filter((s) => s !== lead);
+  let h = '';
+  if (lead) h += `<article class="lead ${lead.img ? '' : 'noimg'}"><div>${kicker(lead)}<h1><a href="#/story/${lead.id}">${esc(lead.title)}</a></h1><p>${esc(lead.lede)}</p>${byline(lead)}</div>${lead.img ? `<a href="#/story/${lead.id}"><img src="${esc(lead.img)}" alt=""></a>` : ''}</article>`;
+  h += `<div class="cats" role="group" aria-label="分類"><button aria-pressed="${!cat}" data-cat="">全部</button>${d.cats.map((c) => `<button aria-pressed="${cat === c.key}" data-cat="${c.key}">${esc(c.zh)}</button>`).join('')}</div>`;
+  h += rest.map((s) => `<article class="item ${s.img ? '' : 'noimg'} ${s.status}"><div>${kicker(s)}<h2><a href="#/story/${s.id}">${esc(s.title)}</a></h2>${s.status === 'retracted' ? `<p>本公司已撤回這篇報道。原因：${esc(s.retractReason)}</p>` : `<p>${esc(s.lede)}</p>`}${byline(s)}</div>${s.img ? `<a href="#/story/${s.id}"><img src="${esc(s.img)}" alt="" loading="lazy"></a>` : ''}</article>`).join('');
+  if (!list.length) h += `<p class="empty">${cat ? '這個分類暫時未有報道。' : '尚未有報道。第一篇新聞發佈後會在這裡出現。'}</p>`;
+  return h;
+}
+async function story(id) {
+  const s = await api('story?id=' + encodeURIComponent(id));
+  if (s._status === 404 || !s.id) return `<a class="back" href="#/">返回新聞</a><h1 class="page-title">找不到這篇報道</h1><p class="intro">編號可能有誤，或報道尚未發佈。</p>`;
+  document.title = s.title + '｜近觀者';
+  let h = `<a class="back" href="#/">返回新聞</a><article class="article ${s.status}">${kicker(s)}<h1>${esc(s.title)}</h1>${byline(s)}`;
+  if (s.status === 'retracted') return h + `<div class="note alert"><b>本公司已撤回這篇報道。</b><br>原因：${esc(s.retractReason)}<br>撤回時間：${day(s.retractedAt || s.publishedAt)}</div><p class="meta">本公司不會刪除已撤回的報道；標題及撤回原因會永久保留。</p></article>`;
+  if (s.type === 'opinion') h += `<div class="note">這是一篇評論，屬作者觀點，不代表本公司立場。</div>`;
+  h += s.corrections.map((c) => `<div class="note"><b>${c.kind === 'clarify' ? '澄清' : '更正'}（${day(c.at).slice(0, 10)}）</b><br>${esc(c.text)}</div>`).join('');
+  if (s.lede) h += `<p class="lede">${esc(s.lede)}</p>`;
+  if (s.img) h += `<figure><img src="${esc(s.img)}" alt=""></figure>`;
+  return h + `<div class="body">${esc(s.body)}</div><p class="meta" style="margin-top:2rem">審批：${esc(s.editor || '—')}　編號：${esc(s.id)}</p></article>`;
+}
+async function corrections() {
+  const d = await api('news?limit=50');
+  const rows = [];
+  for (const s of d.items) { for (const c of s.corrections) rows.push({ at: c.at, s, text: c.text, kind: c.kind === 'clarify' ? '澄清' : '更正' }); if (s.status === 'retracted') rows.push({ at: s.retractedAt || s.publishedAt, s, text: s.retractReason, kind: '撤回' }); }
+  rows.sort((a, b) => b.at - a.at);
+  return `<h1 class="page-title">更正紀錄</h1><p class="intro">報道出錯，本公司會公開改正並說明改了甚麼；核心內容站不住腳的報道會撤回，但不會刪除。以下是全部紀錄。</p>` +
+    (rows.length ? `<div class="scroll"><table class="tbl"><thead><tr><th>日期</th><th>類別</th><th>報道</th><th>內容</th></tr></thead><tbody>${rows.map((r) => `<tr><td style="white-space:nowrap">${day(r.at).slice(0, 10)}</td><td>${r.kind}</td><td><a href="#/story/${r.s.id}">${esc(r.s.title)}</a></td><td>${esc(r.text)}</td></tr>`).join('')}</tbody></table></div>` : `<p class="empty">暫時未有更正或撤回。</p>`);
+}
+async function about() {
+  const c = await api('company');
+  return `<h1 class="page-title">關於本公司</h1><p class="creed">${esc(c.brand.creed)}。</p><p class="intro">近觀者新聞有限公司是在 Discord 模擬社會內運作的新聞機構。我們不假裝沒有立場，但任何觀點都必須建基於查證過的事實。記者走到事實跟前，看清楚，才下筆。</p>
+  <h2 class="sec">編採守則</h2><ul class="rules">${c.ethics.map((e) => { const i = e.indexOf('。'); return `<li><b>${esc(e.slice(0, i + 1))}</b>${esc(e.slice(i + 1))}</li>`; }).join('')}</ul>
+  <h2 class="sec">公司架構</h2><p class="intro">公司由董事會領導，下設七個部門。編輯部按事實獨立決定稿件能否發佈，其他部門及任何外界關係均不得干預。</p>
+  <div class="scroll"><table class="tbl"><thead><tr><th>部門</th><th>職責</th><th>職銜示例</th></tr></thead><tbody>${c.depts.map((d) => `<tr><td><b>${esc(d.zh)}</b><br><span class="en">${esc(d.en)}</span></td><td>${esc(d.does)}</td><td class="en">${esc(d.example)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+async function people() {
+  const d = await api('staff'), tiers = [[3, '董事會'], [2, '管理人員'], [1, '員工']];
+  return `<h1 class="page-title">管理層及團隊</h1><p class="intro">名單按職級排列，並隨人事變動自動更新。</p>` + (d.staff.length ? tiers.map(([t, zh]) => { const g = d.staff.filter((s) => s.tier === t); return g.length ? `<h2 class="sec">${zh}</h2><div class="people">${g.map((s) => `<div class="person"><b>${esc(s.name)}</b>${esc(s.title)}<br><span class="en">${esc(s.titleEn)}</span></div>`).join('')}</div>` : ''; }).join('') : `<p class="empty">尚未有人員紀錄。</p>`);
+}
+async function academy() {
+  const c = await api('company');
+  return `<h1 class="page-title">培訓學院</h1><p class="intro">所有同事入職後按崗位修讀課程。每科設講義及考試：每次由題庫隨機抽 ${c.exam.draw} 題，答對 ${c.exam.pass} 題合格。修畢一張證書所需的全部課程，系統會即時頒發證書；證書可在本網站核實。</p>
+  <h2 class="sec">證書</h2><div class="scroll"><table class="tbl"><thead><tr><th>證書</th><th>所需課程</th><th>對象</th></tr></thead><tbody>${c.certs.map((k) => `<tr><td><b>${esc(k.zh)}</b><br><span class="en">${esc(k.en)}</span></td><td>${k.courses.join('、')}</td><td>${esc(k.for)}</td></tr>`).join('')}</tbody></table></div>
+  ${c.tracks.map((t) => { const list = c.courses.filter((x) => x.track === t.key); return list.length ? `<h2 class="sec">${esc(t.zh)} <span class="en">${esc(t.en)}</span></h2><div class="scroll"><table class="tbl"><tbody>${list.map((x) => `<tr><td style="white-space:nowrap"><b>${x.id}</b></td><td><b>${esc(x.name)}</b> <span class="en">${esc(x.en)}</span><br>${esc(x.intro)}<br><span class="en">內容：${x.sections.map(esc).join('、')}${x.need.length ? '｜先修：' + x.need.join('、') : ''}</span></td></tr>`).join('')}</tbody></table></div>` : ''; }).join('')}`;
+}
+async function verify(serial) {
+  let h = `<h1 class="page-title">證書核實</h1><p class="intro">輸入證書上的編號，即可核實該證書是否由近觀者培訓學院發出，以及現時是否有效。</p>
+  <form class="verify" id="vf"><label class="skip" for="vs">證書編號</label><input id="vs" placeholder="CVC-2026-0001" value="${esc(serial || '')}" autocomplete="off"><button class="btn">核實證書</button></form>`;
+  if (serial) {
+    const r = await api('verify?serial=' + encodeURIComponent(serial));
+    h += r.found ? `<div class="result ${r.status === 'valid' ? '' : 'bad'}"><h2>${r.status === 'valid' ? '證書有效' : '證書已撤銷'}</h2><dl><dt>證書編號</dt><dd>${esc(r.serial)}</dd><dt>持有人</dt><dd>${esc(r.name)}</dd><dt>證書</dt><dd>${esc(r.zh)}<br><span class="en">${esc(r.en)}</span></dd><dt>修畢課程</dt><dd>${r.courses.join('、')}</dd><dt>頒發日期</dt><dd>${day(r.at).slice(0, 10)}</dd></dl></div>`
+      : `<div class="result bad"><h2>找不到這張證書</h2><p style="margin:0">本公司沒有編號為「${esc(serial)}」的證書紀錄。請核對編號，格式為 CVC-年份-四位數字。</p></div>`;
+  }
+  return h;
+}
+async function careers() {
+  const c = await api('company');
+  return `<h1 class="page-title">加入我們</h1><p class="intro">各部門長期招聘見習主任。取錄後會獲發聘書及員工編號，修讀培訓學院的課程，並按公開條件晉升：修畢課程、取得證書、入職日數達標、紀律良好。</p>
+  <h2 class="sec">晉升階梯</h2><div class="scroll"><table class="tbl"><thead><tr><th>職級</th><th>職銜</th><th>層級</th></tr></thead><tbody>${c.grades.map((g) => `<tr><td>第 ${g.g} 級</td><td><b>${esc(g.zh)}</b> <span class="en">${esc(g.en)}</span></td><td>${esc(g.tier)}</td></tr>`).join('')}</tbody></table></div>
+  <p class="en">職銜由職級加部門職能組成，例如新聞部第 4 級為「助理新聞經理 Assistant Press Manager」。第 5 級或以上由董事會委任。</p>
+  <h2 class="sec">招聘部門</h2><div class="scroll"><table class="tbl"><tbody>${c.depts.map((d) => `<tr><td><b>${esc(d.zh)}</b><br><span class="en">${esc(d.en)}</span></td><td>${esc(d.does)}</td></tr>`).join('')}</tbody></table></div>
+  <h2 class="sec">應徵方法</h2><p class="intro">加入本公司的 Discord 伺服器，到「職位空缺」頻道按「應徵」，選擇部門並填寫申請表。人力資源及行政部會在七日內以私訊回覆。</p>`;
+}
+async function contact() {
+  const c = await api('company');
+  return `<h1 class="page-title">聯絡</h1><p class="intro">所有聯絡均經本公司 Discord 伺服器的「服務台」頻道處理。每次聯絡會開立個案及一條只有你和負責同事看得到的討論串，我們會在 24 小時內回覆。</p>
+  <ul class="rules">${[...c.caseTypes, '報料'].map((t, i) => `<li><b>${esc(t)}。</b>${['查詢公司、服務或報道的一般問題。', '對報道或同事的工作提出投訴，由合規部跟進。', '指出報道有錯並要求更正，由合規部核對原始資料後回覆。', '邀請合作、刊登廣告或贊助。合作關係不影響報道。', '申請轉載本公司的內容。', '提供新聞線索，可選擇匿名。'][i] || ''}</li>`).join('')}</ul>
+  <h2 class="sec">在你的伺服器接收新聞</h2><p class="intro">在本公司伺服器的「新聞發佈」頻道按「追蹤」，選擇你的伺服器及頻道，新聞便會自動送達。你無需加入機器人，也無需給予任何權限。</p>`;
+}
+
+async function me(token) {
+  const d = await api('me?t=' + encodeURIComponent(token || ''));
+  if (d._status !== 200) return `<h1 class="page-title">個人專頁</h1><p class="intro">${esc(d.error || '連結無效或已過期。')}請在 Discord 的「員工服務」按「個人專頁」，或使用 /portal 取得新的連結。連結 30 分鐘內有效。</p>`;
+  document.title = d.name + '｜個人專頁';
+  const hm = (m) => `${Math.floor(m / 60)} 小時 ${Math.round(m % 60)} 分`, row = (a) => `<tr>${a.map((x) => `<td>${x}</td>`).join('')}</tr>`;
+  const essay = { pass: '合格', dist: '優異', fail: '不合格', required: '必須提交', '': '—' };
+  return `<h1 class="page-title">${esc(d.name)}</h1><p class="intro">${esc(d.title)}　<span class="en">${esc(d.titleEn)}</span><br>${esc(d.dept || '尚未編入部門')}｜第 ${d.grade} 級｜員工編號 ${esc(d.no)}｜${d.joinedAt ? day(d.joinedAt).slice(0, 10) + ' 入職' : ''}</p>
+  <div class="result" style="border-top-color:var(--gold);max-width:none"><dl><dt>值勤時數</dt><dd>最近七日 ${hm(d.weekMins)}｜累計 ${hm(d.dutyMins)}</dd><dt>已發佈稿件</dt><dd>${d.published}</dd><dt>獲嘉許</dt><dd>${d.kudos} 次</dd><dt>試用期</dt><dd>${d.probation === 'passed' ? '已通過' : d.grade === 1 ? '評核中' : '—'}</dd><dt>表現評核</dt><dd>${d.review === null ? '未有評核' : '最近平均 ' + d.review + '／5'}</dd></dl></div>
+  <h2 class="sec">晉升進度</h2>${d.next ? `<p>下一級：<b>${esc(d.next.title)}</b></p>${d.next.missing.length ? `<ul class="rules">${d.next.missing.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>` : '<p>條件已齊備，可請上司或人力資源及行政部辦理晉升。</p>'}` : '<p>已是最高職級。</p>'}
+  <h2 class="sec">任務</h2>${d.tasks.length ? `<div class="scroll"><table class="tbl"><thead><tr><th>編號</th><th>任務</th><th>期限</th><th>狀態</th></tr></thead><tbody>${d.tasks.map((t) => row([esc(t.id), esc(t.title), esc(t.due), t.status === 'open' ? '待確認' : '進行中'])).join('')}</tbody></table></div>` : '<p class="en">沒有未完成的任務。</p>'}
+  <h2 class="sec">課程</h2><div class="scroll"><table class="tbl"><thead><tr><th>課程</th><th>開放</th><th>考試</th><th>文章</th><th>修畢</th></tr></thead><tbody>${d.courses.map((c) => row([`<b>${c.id}</b> ${esc(c.name)}`, c.open ? '已開放' : '未開放', c.exam ? c.score + ' 分' : '—', essay[c.essay] || '—', c.done ? '已修畢' : '—'])).join('')}</tbody></table></div>
+  <h2 class="sec">證書</h2>${d.certs.length ? `<ul class="rules">${d.certs.map((k) => `<li><b>${esc(k.zh)}</b>　<a href="#/verify/${esc(k.serial)}">${esc(k.serial)}</a></li>`).join('')}</ul>` : '<p class="en">尚未取得證書。</p>'}
+  <h2 class="sec">申請</h2>${d.requests.length ? `<div class="scroll"><table class="tbl"><tbody>${d.requests.map((r) => row([esc(r.id), esc(r.type), esc(r.status), day(r.at).slice(0, 10)])).join('')}</tbody></table></div>` : '<p class="en">尚未提交任何申請。</p>'}
+  <p class="meta" style="margin-top:2rem">這個頁面只有持有連結的人可以看到，連結 30 分鐘後失效。請勿轉發。</p>`;
+}
+async function route() {
+  const h = location.hash || '#/', p = h.slice(2).split('/');
+  document.title = '近觀者 Close Viewer News';
+  $('#nav').innerHTML = NAV.map(([href, t]) => `<a href="${href}" ${(href === '#/' ? (h === '#/' || p[0] === 'story' || p[0] === 'cat') : h.startsWith(href)) ? 'aria-current="page"' : ''}>${t}</a>`).join('');
+  const views = { '': () => home(''), cat: () => home(p[1]), story: () => story(p[1]), me: () => me(p[1]), corrections, about, people, academy, verify: () => verify(decodeURIComponent(p[1] || '')), careers, contact };
+  try { $('#app').innerHTML = await (views[p[0]] || views[''])(); } catch (e) { $('#app').innerHTML = `<h1 class="page-title">暫時讀取不到資料</h1><p class="intro">請稍後重新載入。如問題持續，請到服務台通知我們。</p>`; }
+  window.scrollTo(0, 0);
+}
+document.addEventListener('click', (e) => { const b = e.target.closest('[data-cat]'); if (b) location.hash = b.dataset.cat ? '#/cat/' + b.dataset.cat : '#/'; });
+document.addEventListener('submit', (e) => { if (e.target.id === 'vf') { e.preventDefault(); location.hash = '#/verify/' + encodeURIComponent($('#vs').value.trim()); } });
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
